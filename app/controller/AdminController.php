@@ -150,7 +150,7 @@ class AdminController
         ]);
     }
 
-    function bulkinsert()
+/* function bulkinsert()
     {
         $db = Db::connect();
         for($i=0;$i<1000;$i++){
@@ -171,7 +171,7 @@ class AdminController
         }
 
 
-    }
+    }*/
 
    
 }

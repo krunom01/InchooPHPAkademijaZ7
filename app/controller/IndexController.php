@@ -11,6 +11,15 @@ class IndexController
             "posts" => $posts
         ]);
     }
+    public function updateUser()
+    {
+
+
+        $view = new View();
+        $view->render('updateUser', [
+            "message" => ""
+        ]);
+    }
 
     public function view($id = 0)
     {
