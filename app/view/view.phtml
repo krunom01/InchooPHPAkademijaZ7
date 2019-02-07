@@ -3,9 +3,6 @@
 <?php if( Session::getInstance()->isLoggedIn() &&
     $post->getUserid()==Session::getInstance()->getUser()->id): ?>
 
-<!--go to update user view -->
-    <a href="<?php echo App::config("url")."index/updateUser" ?>">update user</a>
-
 
 
 <a href="<?php echo App::config("url") ?>admin/delete/<?php echo $post->getId() ?>">Delete posts (and all likes and comments</a><br />

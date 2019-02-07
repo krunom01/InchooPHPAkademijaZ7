@@ -11,13 +11,12 @@ class IndexController
             "posts" => $posts
         ]);
     }
-    public function updateUser()
+    public function updateUser($id = 0)
     {
-
-
         $view = new View();
+
         $view->render('updateUser', [
-            "message" => ""
+            "post" => Post::find($id)
         ]);
     }
 
@@ -44,6 +43,7 @@ class IndexController
             $stmt->bindValue('user', Session::getInstance()->getUser()->id);
             $stmt->execute();
             header('Location: ' . App::config('url'));
+
         }
     }
 

@@ -97,7 +97,7 @@ class AdminController
     {
 //ne dostaju kontrole
         $db = Db::connect();
-        $statement = $db->prepare("select id, concat(firstname, ' ', lastname) as name, pass from user where email=:email");
+        $statement = $db->prepare("select id ,firstname,lastname,email, pass from user where email=:email");
         $statement->bindValue('email', Request::post("email"));
         $statement->execute();
 
@@ -124,6 +124,22 @@ class AdminController
 
        
     }
+    public function update($id)
+    {
+
+
+            $db = Db::connect();
+            $statement = $db->prepare("update user set firstname = :firstname , lastname= :lastname,
+                email = :email where id = :id");
+            $statement->bindValue('firstname', Request::post("firstname"));
+            $statement->bindValue('lastname', Request::post("lastname"));
+            $statement->bindValue('email', Request::post("email"));
+            $statement->bindValue('id', $id);
+            $statement->execute();
+            header('Location: ' . App::config('url'));
+
+
+    }
 
     public function logout()
     {
@@ -149,6 +165,7 @@ class AdminController
             "posts" => $posts
         ]);
     }
+
 
 /* function bulkinsert()
     {
