@@ -16,8 +16,10 @@ class IndexController
         $view = new View();
 
         $view->render('updateUser', [
-            "post" => Post::find($id)
+            "post" => Post::find($id),
+            "message" => ""
         ]);
+
     }
 
     public function view($id = 0)

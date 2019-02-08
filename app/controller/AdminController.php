@@ -126,17 +126,35 @@ class AdminController
     }
     public function update($id)
     {
+            if(Validator::string(Request::post("firstname")) && Validator::string(Request::post("lastname"))) {
+                if(Validator::email(Request::post("email"))) {
 
-
-            $db = Db::connect();
-            $statement = $db->prepare("update user set firstname = :firstname , lastname= :lastname,
+                    $db = Db::connect();
+                    $statement = $db->prepare("update user set firstname = :firstname , lastname= :lastname,
                 email = :email where id = :id");
-            $statement->bindValue('firstname', Request::post("firstname"));
-            $statement->bindValue('lastname', Request::post("lastname"));
-            $statement->bindValue('email', Request::post("email"));
-            $statement->bindValue('id', $id);
-            $statement->execute();
-            header('Location: ' . App::config('url'));
+                    $statement->bindValue('firstname', Request::post("firstname"));
+                    $statement->bindValue('lastname', Request::post("lastname"));
+                    $statement->bindValue('email', Request::post("email"));
+                    $statement->bindValue('id', $id);
+                    $statement->execute();
+                    //update session
+                    Session::getInstance()->getUser()->firstname = Request::post("firstname");
+                    Session::getInstance()->getUser()->lastname = Request::post("lastname");
+                    Session::getInstance()->getUser()->email = Request::post("email");
+                    header('Location: ' . App::config('url'));
+
+
+                }
+                else {
+                    $view = new View();
+                    $view->render('updateUser',["message"=>"Wrong email!"]);
+
+                }
+            }
+            else {
+                $view = new View();
+                $view->render('updateUser',["message"=>"Wrong insert for first or last name!"]);
+            }
 
 
     }
